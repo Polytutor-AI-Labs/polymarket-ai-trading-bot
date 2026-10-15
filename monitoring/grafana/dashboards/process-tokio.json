@@ -1,0 +1,416 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "links": [],
+  "panels": [
+    {
+      "id": 1,
+      "title": "Process",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "id": 2,
+      "title": "Process RSS Memory (MB)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 1 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "decmbytes",
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "process_resident_memory_bytes / 1024 / 1024",
+          "legendFormat": "RSS",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 3,
+      "title": "Process Virtual Memory (MB)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 1 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "decmbytes",
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "process_virtual_memory_bytes / 1024 / 1024",
+          "legendFormat": "Virtual",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 4,
+      "title": "Process CPU Usage",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 1 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "rate(process_cpu_seconds_total[1m])",
+          "legendFormat": "CPU",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 5,
+      "title": "Open File Descriptors",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 9 },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "process_open_fds",
+          "legendFormat": "Open FDs",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 6,
+      "title": "Process Threads",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 9 },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "process_threads",
+          "legendFormat": "Threads",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 10,
+      "title": "Tokio Runtime",
+      "type": "row",
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 17 },
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "id": 11,
+      "title": "Workers",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 18 },
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "thresholds" }, "thresholds": { "steps": [{ "color": "green", "value": null }] } },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "tokio_workers_count",
+          "legendFormat": "Workers",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 12,
+      "title": "Live Tasks",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 18 },
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "thresholds" }, "thresholds": { "steps": [{ "color": "green", "value": null }, { "color": "yellow", "value": 100 }] } },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "tokio_live_tasks_count",
+          "legendFormat": "Live Tasks",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 13,
+      "title": "Blocking Threads",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 18 },
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "thresholds" }, "thresholds": { "steps": [{ "color": "green", "value": null }, { "color": "yellow", "value": 10 }] } },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "tokio_blocking_threads_count",
+          "legendFormat": "Blocking",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 14,
+      "title": "Global Queue Depth",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 18 },
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "thresholds" }, "thresholds": { "steps": [{ "color": "green", "value": null }, { "color": "yellow", "value": 50 }, { "color": "red", "value": 200 }] } },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "tokio_global_queue_depth",
+          "legendFormat": "Depth",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 15,
+      "title": "Worker Busy Duration",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 22 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "tokio_total_busy_duration_seconds",
+          "legendFormat": "Busy Duration",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 16,
+      "title": "Worker Busy Ratio",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 22 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0,
+          "max": 1,
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "tokio_busy_ratio",
+          "legendFormat": "Busy Ratio",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 17,
+      "title": "Polls Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 30 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops",
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "rate(tokio_total_polls_count[1m])",
+          "legendFormat": "Polls/s",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 18,
+      "title": "Task Schedule Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 30 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops",
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "rate(tokio_total_local_schedule_count[1m])",
+          "legendFormat": "Local Schedule/s",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        },
+        {
+          "expr": "rate(tokio_num_remote_schedules[1m])",
+          "legendFormat": "Remote Schedule/s",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 19,
+      "title": "Steal & Overflow Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 38 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops",
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "rate(tokio_total_steal_count[1m])",
+          "legendFormat": "Steals/s",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        },
+        {
+          "expr": "rate(tokio_total_overflow_count[1m])",
+          "legendFormat": "Overflow/s",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 20,
+      "title": "IO Driver Ready Events Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 38 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops",
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "rate(tokio_io_driver_ready_count[1m])",
+          "legendFormat": "IO Ready/s",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 21,
+      "title": "Global Queue Depth Over Time",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 46 },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "tokio_global_queue_depth",
+          "legendFormat": "Global",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        },
+        {
+          "expr": "tokio_total_local_queue_depth",
+          "legendFormat": "Local (total)",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    },
+    {
+      "id": 22,
+      "title": "Budget Forced Yield Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 46 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops",
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "rate(tokio_budget_forced_yield_count[1m])",
+          "legendFormat": "Forced Yield/s",
+          "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+        }
+      ],
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" }
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": ["polymarket", "process", "tokio"],
+  "templating": {
+    "list": [
+      {
+        "current": { "selected": false, "text": "Prometheus", "value": "Prometheus" },
+        "hide": 0,
+        "includeAll": false,
+        "name": "DS_PROMETHEUS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "type": "datasource"
+      }
+    ]
+  },
+  "time": { "from": "now-6h", "to": "now" },
+  "title": "Process & Tokio Runtime",
+  "uid": "polymarket-process-tokio"
+}

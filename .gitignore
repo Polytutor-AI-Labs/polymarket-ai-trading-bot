@@ -1,0 +1,34 @@
+/target
+.env
+.venv
+portfolio_state.json
+/model/
+__pycache__/
+*.pyc
+CHANGELOG.gen
+.envrc
+tmp/
+
+# local backtest data (pulled from prod, not versioned)
+scripts/model/
+
+# PolyTutor defaults
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+dist/
+build/
+target/
+logs/
+*.log
+.DS_Store
+*.sqlite
+*.db
+config.toml

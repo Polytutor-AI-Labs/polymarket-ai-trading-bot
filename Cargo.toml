@@ -1,0 +1,8 @@
+[workspace]
+members = ["common", "trading-bot", "copy-trading-bot"]
+resolver = "2"
+
+[profile.release]
+opt-level = 3
+strip = true
+lto = "thin"
